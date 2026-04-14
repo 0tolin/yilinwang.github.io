@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Yilin Wang</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+
+:root {
+  --red: #FF0000;
+  --black: #1a1a1a;
+  --white: #ffffff;
+  --light: #f9f9f9;
+}
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: var(--white);
+  color: var(--black);
+  min-height: 100vh;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 18px 40px;
+  gap: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 4px 0;
+  list-style: none;
+  pointer-events: all;
+}
+
+.nav-links li { display: inline; }
+
+.nav-links a {
+  color: var(--red);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  padding: 2px 18px;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+.nav-links a:hover { opacity: 0.6; }
+
+/* ── PAGES ── */
+.page {
+  display: none;
+  min-height: 100vh;
+  padding-top: 60px;
+}
+.page.active { display: block; }
+
+/* ── HOME ── */
+#page-home {
+  padding: 0;
+  position: relative;
+}
+
+.hero-image {
+  width: 100%;
+  height: calc(100vh - 0px);
+  object-fit: cover;
+  display: block;
+}
+
+/* Fallback hero if no image */
+.hero-placeholder {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(160deg, #b8c4b0 0%, #8fa08a 40%, #6a7f72 100%);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-name {
+  position: absolute;
+  bottom: 80px;
+  left: 60px;
+}
+.hero-name .first {
+  display: block;
+  font-size: 28px;
+  color: var(--red);
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.hero-name .last {
+  display: block;
+  font-size: 72px;
+  color: var(--red);
+  font-weight: 400;
+  line-height: 1;
+}
+
+/* ── SECTION HEADER ── */
+.section-heading {
+  font-size: 20px;
+  color: var(--red);
+  font-weight: 400;
+  padding: 40px 40px 28px;
+  letter-spacing: 0.01em;
+}
+.section-heading .zh {
+  font-size: 18px;
+  margin-right: 8px;
+}
+
+/* ── PAINTINGS GRID ── */
+.paintings-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  padding: 0 40px 60px;
+}
+
+.painting-card {
+  cursor: pointer;
+  padding: 0 16px 36px 0;
+}
+.painting-card:hover img { opacity: 0.88; }
+
+.painting-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.25s;
+  background: #eee;
+}
+
+.painting-title {
+  font-size: 12px;
+  color: var(--red);
+  font-weight: 400;
+  margin-top: 10px;
+  line-height: 1.45;
+  font-family: 'Courier New', monospace;
+}
+
+/* ── PAINTING DETAIL PAGE ── */
+#page-detail {
+  padding: 80px 60px 60px;
+}
+
+.detail-back {
+  font-size: 13px;
+  color: var(--red);
+  cursor: pointer;
+  display: inline-block;
+  margin-bottom: 40px;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.05em;
+  transition: opacity 0.2s;
+}
+.detail-back:hover { opacity: 0.6; }
+
+.detail-images {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+}
+
+.detail-images img {
+  max-height: 520px;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
+  background: #f0f0f0;
+}
+
+.detail-description {
+  font-size: 14px;
+  color: var(--red);
+  font-weight: 400;
+  font-family: 'Courier New', monospace;
+  line-height: 1.7;
+  max-width: 680px;
+  margin-top: 16px;
+}
+
+/* ── VIDEO PAGE ── */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding: 0 40px 60px;
+  align-items: start;
+}
+
+.video-item video,
+.video-item img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  display: block;
+  background: #000;
+}
+
+.video-item.tall { grid-row: span 2; }
+
+/* ── ABOUT / LIGHT / SCHOOLWORK ── */
+.text-page {
+  padding: 40px 60px 80px;
+  max-width: 760px;
+}
+.text-page p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--black);
+  margin-bottom: 1.4em;
+}
+.text-page .label {
+  font-size: 13px;
+  color: var(--red);
+  font-family: 'Courier New', monospace;
+  margin-bottom: 6px;
+}
+
+.schoolwork-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 0 40px 60px;
+}
+.schoolwork-grid img {
+  width: 100%;
+  height: 280px;
+  object-fit: cober;
+  display: block;
+  background: #eee;
+}
+.schoolwork-caption {
+  font-size: 11px;
+  color: var(--red);
+  font-family: 'Courier New', monospace;
+  margin-top: 6px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 800px) {
+  nav { padding: 14px 20px; }
+  .nav-links a { font-size: 13px; padding: 2px 10px; }
+  .paintings-grid { grid-template-columns: repeat(2, 1fr); padding: 0 20px 40px; }
+  .video-grid { grid-template-columns: 1fr; padding: 0 20px 40px; }
+  .schoolwork-grid { grid-template-columns: repeat(2, 1fr); padding: 0 20px 40px; }
+  .section-heading { padding: 30px 20px 20px; }
+  .hero-name .last { font-size: 48px; }
+  #page-detail { padding: 70px 20px 40px; }
+  .text-page { padding: 20px 20px 60px; }
+}
+```
+
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+
+  <nav>
+    <ul class="nav-links">
+      <li><a href="#" onclick="showPage('home'); return false;">light is?</a></li>
+      <li><a href="#" onclick="showPage('paintings'); return false;">paintings</a></li>
+      <li><a href="#" onclick="showPage('schoolwork'); return false;">schoolwork</a></li>
+      <li><a href="#" onclick="showPage('video'); return false;">video</a></li>
+      <li><a href="#" onclick="showPage('about'); return false;">about</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── HOME ── -->
+
+  <div id="page-home" class="page active">
+           <img class="hero-image" src="your-forest-photo.jpg" alt="Forest"> 
+    <div class="hero-name">
+      <span class="first" style="color: var(--red);">Yilin</span>
+      <span class="last" style="color: var(--red);">Wang</span>
+    </div>
+  </div>
+
+  <!-- ── PAINTINGS ── -->
+
+  <div id="page-paintings" class="page">
+    <div class="section-heading">
+      <span class="zh">画呀画</span> paintings
+    </div>
+    <div class="paintings-grid" id="paintings-grid">
+      <!-- Cards injected by JS -->
+    </div>
+  </div>
+
+  <!-- ── PAINTING DETAIL ── -->
+
+  <div id="page-detail" class="page">
+    <span class="detail-back" onclick="showPage('paintings')">← back to paintings</span>
+    <div class="detail-images" id="detail-images"></div>
+    <div class="detail-description" id="detail-description"></div>
+  </div>
+
+  <!-- ── SCHOOLWORK ── -->
+
+  <div id="page-schoolwork" class="page">
+    <div class="section-heading">schoolwork</div>
+    <div class="schoolwork-grid">
+      <!-- Add your schoolwork images below. Example: -->
+      <div>
+        <img src="schoolwork-1.jpg" alt="Project title">
+        <div class="schoolwork-caption">Urban Museum, 2022</div>
+        </div>
+
+      <div>
+        <img src="schoolwork-2.jpg" alt="Project title">
+        <div class="schoolwork-caption">Urban Sponge, 2023</div>
+        </div>
+
+      <div>
+        <img src="schoolwork-3.jpg" alt="Project title">
+        <div class="schoolwork-caption">Urban Analysis, 2024</div>
+        </div>
+ 
+    </div>
+  </div>
+
+  <!-- ── VIDEO ── -->
+
+  <div id="page-video" class="page">
+    <div class="section-heading">video</div>
+    <div class="video-grid">
+      <!--
+        Replace these with your actual <video> or <iframe> elements.
+        Example for a video file:
+          <div class="video-item">
+            <video controls src="your-video.mp4"></video>
+          </div>
+        Example for YouTube:
+          <div class="video-item">
+            <iframe width="100%" height="260" src="https://www.youtube.com/embed/YOUR_ID"
+              frameborder="0" allowfullscreen></iframe>
+          </div>
+      -->
+      <div class="video-item">
+            <video controls src="video1.mp4"></video>
+      </div>
+      <div class="video-item">
+            <video controls src="video2.mp4"></video>
+      </div>
+      <div class="video-item">
+            <video controls src="video3.mp4"></video>
+      </div>
+      <div class="video-item">
+            <video controls src="video4.mp4"></video>
+      </div>
+    </div>
+</div>
+
+  <!-- ── ABOUT ── -->
+
+  <div id="page-about" class="page">
+    <div class="section-heading">about</div>
+    <div class="text-page">
+      <p>
+        <!-- Replace with your actual bio -->
+        Still exploring myself.  <span style="color:var(--red);">   (^ - ^)</span>
+
+      </p>
+      <p>
+      </p>
+      <p>
+        Contact: <span style="color:var(--red);"> yilin88711@outlook.com   </span>
+      </p>
+        Instagram: <span style="color:var(--red);">   i_inlinen   </span>
+
+    </div>
+  </div>
+
+  <!-- ── LIGHT IS? ── -->
+
+  <!-- (home already serves as "light is?" — or add a separate text page) -->
+
+  <script>
+    // ─────────────────────────────────────────────
+    // PAINTINGS DATA
+    // To add real images: replace "src" with your image filename, e.g. "smudged-makeup.jpg"
+    // Place all images in the same folder as index.html
+    // ─────────────────────────────────────────────
+    const paintings = [
+      {
+        title: "Smudged makeup",
+        src: "smudged-makeup.jpg",          // e.g. "smudged-makeup.jpg"
+        detailImages: ["1-1.jpg", "1-2.jpg"],   // can have 1 or 2 images on detail page
+        description: "Add your description here."
+      },
+      {
+        title: "All flushed moments",
+        src: "All flushed moments.jpg",
+        detailImages: ["2-1.jpg", "2-2.jpg"],
+        description: "My face always flushes when I feel tense or awkward. This is the time I try to face my red face."
+      },
+      {
+        title: "Outside the window",
+        src: "Outside the window.jpg",
+        detailImages: ["3-1.jpg", "3-2.jpg"],
+        description: "Our coffee shop has new windows. The view outside is framed like a painting."
+      },
+      {
+        title: "Two people under the paulownia tree",
+        src: "the paulownia tree.jpg",
+        detailImages: ["7-1.jpg", "7-2.jpg"],
+        description: "Last night, I met two people sitting under the paulownia tree."
+      },
+      {
+        title: "Wild pink flowers",
+        src: "Blossom.jpg",
+        detailImages: ["5-1.jpg", "5-2.jpg"],
+        description: "These flowers are like stars."
+      },
+      {
+        title: "She dreamed of red lightning last night.",
+        src: "lightning.jpg",
+        detailImages: ["6-1.jpg", "6-2.jpg"],
+        description: "She dreamed of red lightning last night."
+      },
+      {
+        title: "A breathe of spring",
+        src: "A breathe of spring.jpg",
+        detailImages: ["4-1.jpg", "4-2.jpg"],
+        description: ""
+      },
+      {
+        title: "Status",
+        src: "Status.jpg",
+        detailImages: ["8-1.jpg", "8-2.jpg","8-3.jpg","8-4.jpg"],
+        description: "I found a hole."
+      }
+    ];
+
+    // Build painting cards
+    const grid = document.getElementById('paintings-grid');
+    paintings.forEach((p, i) => {
+      const card = document.createElement('div');
+      card.className = 'painting-card';
+      card.onclick = () => showDetail(i);
+
+      const imgHTML = p.src
+        ? `<img src="${p.src}" alt="${p.title}">`
+        : `<div style="width:100%;aspect-ratio:1;background:#e4ddd4;display:flex;align-items:center;justify-content:center;">
+             <span style="font-size:11px;color:#bbb;font-style:italic;text-align:center;padding:8px;">Add image:<br>${p.title}</span>
+           </div>`;
+
+      card.innerHTML = `${imgHTML}<div class="painting-title">${p.title}</div>`;
+      grid.appendChild(card);
+    });
+
+    // Show detail page for a painting
+    function showDetail(index) {
+      const p = paintings[index];
+      const imgsEl = document.getElementById('detail-images');
+      const descEl = document.getElementById('detail-description');
+
+      imgsEl.innerHTML = p.detailImages.map(src =>
+        src
+          ? `<img src="${src}" alt="${p.title}">`
+          : `<div style="width:420px;max-width:100%;aspect-ratio:4/3;background:#e8e0d8;display:flex;align-items:center;justify-content:center;">
+               <span style="font-size:12px;color:#bbb;font-style:italic;">Add image here</span>
+             </div>`
+      ).join('');
+
+      descEl.textContent = p.description;
+      showPage('detail');
+    }
+
+    // Page router
+    function showPage(name) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      const target = document.getElementById('page-' + name);
+      if (target) target.classList.add('active');
+      window.scrollTo(0, 0);
+    }
+  </script>
+
+</body>
+</html>

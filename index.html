@@ -238,20 +238,20 @@ nav {
   margin-bottom: 6px;
 }
 
-.schoolwork-grid {
+.photo-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   padding: 0 40px 60px;
 }
-.schoolwork-grid img {
+.photo-grid img {
   width: 100%;
-  height: 280px;
-  object-fit: cober;
+  height: 300px;
+  object-fit: cover;
   display: block;
   background: #eee;
 }
-.schoolwork-caption {
+.photo-caption {
   font-size: 11px;
   color: var(--red);
   font-family: 'Courier New', monospace;
@@ -264,7 +264,7 @@ nav {
   .nav-links a { font-size: 13px; padding: 2px 10px; }
   .paintings-grid { grid-template-columns: repeat(2, 1fr); padding: 0 20px 40px; }
   .video-grid { grid-template-columns: 1fr; padding: 0 20px 40px; }
-  .schoolwork-grid { grid-template-columns: repeat(2, 1fr); padding: 0 20px 40px; }
+  .photo-grid { grid-template-columns: repeat(2, 1fr); padding: 0 20px 40px; }
   .section-heading { padding: 30px 20px 20px; }
   .hero-name .last { font-size: 48px; }
   #page-detail { padding: 70px 20px 40px; }
@@ -282,7 +282,7 @@ nav {
     <ul class="nav-links">
       <li><a href="#" onclick="showPage('home'); return false;">light is?</a></li>
       <li><a href="#" onclick="showPage('paintings'); return false;">paintings</a></li>
-      <li><a href="#" onclick="showPage('schoolwork'); return false;">schoolwork</a></li>
+      <li><a href="#" onclick="showPage('photo'); return false;">photo</a></li>
       <li><a href="#" onclick="showPage('video'); return false;">video</a></li>
       <li><a href="#" onclick="showPage('about'); return false;">about</a></li>
     </ul>
@@ -317,27 +317,42 @@ nav {
     <div class="detail-description" id="detail-description"></div>
   </div>
 
-  <!-- ── SCHOOLWORK ── -->
+  <!-- ── PHOTO── -->
 
-  <div id="page-schoolwork" class="page">
-    <div class="section-heading">schoolwork</div>
-    <div class="schoolwork-grid">
+  <div id="page-photo" class="page">
+    <div class="section-heading">photo</div>
+    <div class="photo-grid">
       <!-- Add your schoolwork images below. Example: -->
       <div>
-        <img src="schoolwork-1.jpg" alt="Project title">
-        <div class="schoolwork-caption">Urban Museum, 2022</div>
+        <img src="photo-1.jpg" alt="Project title">
+        <div class="photo-caption">Kyoto, 2025</div>
         </div>
 
       <div>
-        <img src="schoolwork-2.jpg" alt="Project title">
-        <div class="schoolwork-caption">Urban Sponge, 2023</div>
+        <img src="photo-2.jpg" alt="Project title">
+        <div class="photo-caption">Kyoto, 2025</div>
         </div>
 
       <div>
-        <img src="schoolwork-3.jpg" alt="Project title">
-        <div class="schoolwork-caption">Urban Analysis, 2024</div>
+        <img src="photo-3.jpg" alt="Project title">
+        <div class="photo-caption">Kyoto, 2025</div>
         </div>
- 
+
+       <div>
+        <img src="photo-4.jpg" alt="Project title">
+        <div class="photo-caption">Kagoshima, 2025</div>
+        </div>
+
+       <div>
+        <img src="photo-5.jpg" alt="Project title">
+        <div class="photo-caption">Datong, 2025</div>
+        </div>
+
+       <div>
+        <img src="photo-6.jpg" alt="Project title">
+        <div class="photo-caption">Kagoshima, 2025</div>
+        </div>
+
     </div>
   </div>
 
@@ -369,6 +384,9 @@ nav {
       </div>
       <div class="video-item">
             <video controls src="video4.mp4"></video>
+      </div>
+      <div class="video-item">
+            <video controls src="video5.mp4"></video>
       </div>
     </div>
 </div>

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
@@ -8,290 +7,382 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --red: #FF0000;
+      --black: #1a1a1a;
+      --white: #ffffff;
+      --light: #f9f9f9;
+    }
 
-:root {
-  --red: #FF0000;
-  --black: #1a1a1a;
-  --white: #ffffff;
-  --light: #f9f9f9;
-}
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: var(--white);
+      color: var(--black);
+      min-height: 100vh;
+    }
 
-body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background: var(--white);
-  color: var(--black);
-  min-height: 100vh;
-}
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-start;
+      padding: 18px 40px;
+      gap: 0;
+      background: transparent;
+      pointer-events: none;
+    }
 
-/* ── NAV ── */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 200;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
-  padding: 18px 40px;
-  gap: 0;
-  background: transparent;
-  pointer-events: none;
-}
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 4px 0;
+      list-style: none;
+      pointer-events: all;
+    }
 
-.nav-links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 4px 0;
-  list-style: none;
-  pointer-events: all;
-}
+    .nav-links li { display: inline; }
 
-.nav-links li { display: inline; }
+    .nav-links a {
+      color: var(--red);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      padding: 2px 18px;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover { opacity: 0.6; }
 
-.nav-links a {
-  color: var(--red);
-  text-decoration: none;
-  font-size: 15px;
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  padding: 2px 18px;
-  transition: opacity 0.2s;
-  white-space: nowrap;
-}
-.nav-links a:hover { opacity: 0.6; }
+    /* ── PAGES ── */
+    .page {
+      display: none;
+      min-height: 100vh;
+      padding-top: 60px;
+    }
+    .page.active { display: block; }
 
-/* ── PAGES ── */
-.page {
-  display: none;
-  min-height: 100vh;
-  padding-top: 60px;
-}
-.page.active { display: block; }
+    /* ── HOME ── */
+    #page-home {
+      padding: 0;
+      position: relative;
+    }
 
-/* ── HOME ── */
-#page-home {
-  padding: 0;
-  position: relative;
-}
+    .hero-image {
+      width: 100%;
+      height: calc(100vh - 0px);
+      object-fit: cover;
+      display: block;
+    }
 
-.hero-image {
-  width: 100%;
-  height: calc(100vh - 0px);
-  object-fit: cover;
-  display: block;
-}
+    .hero-name {
+      position: absolute;
+      bottom: 80px;
+      left: 60px;
+    }
+    .hero-name .first {
+      display: block;
+      font-size: 28px;
+      color: var(--red);
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .hero-name .last {
+      display: block;
+      font-size: 72px;
+      color: var(--red);
+      font-weight: 400;
+      line-height: 1;
+    }
 
-/* Fallback hero if no image */
-.hero-placeholder {
-  width: 100%;
-  height: 100vh;
-  background: linear-gradient(160deg, #b8c4b0 0%, #8fa08a 40%, #6a7f72 100%);
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    /* ── SECTION HEADER ── */
+    .section-heading {
+      font-size: 20px;
+      color: var(--red);
+      font-weight: 400;
+      padding: 40px 40px 28px;
+      letter-spacing: 0.01em;
+    }
+    .section-heading .zh {
+      font-size: 18px;
+      margin-right: 8px;
+    }
 
-.hero-name {
-  position: absolute;
-  bottom: 80px;
-  left: 60px;
-}
-.hero-name .first {
-  display: block;
-  font-size: 28px;
-  color: var(--red);
-  font-weight: 400;
-  line-height: 1;
-  margin-bottom: 8px;
-}
-.hero-name .last {
-  display: block;
-  font-size: 72px;
-  color: var(--red);
-  font-weight: 400;
-  line-height: 1;
-}
+    /* ── PAINTINGS GRID ── */
+    .paintings-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      padding: 0 40px 60px;
+    }
 
-/* ── SECTION HEADER ── */
-.section-heading {
-  font-size: 20px;
-  color: var(--red);
-  font-weight: 400;
-  padding: 40px 40px 28px;
-  letter-spacing: 0.01em;
-}
-.section-heading .zh {
-  font-size: 18px;
-  margin-right: 8px;
-}
+    .painting-card {
+      cursor: pointer;
+      padding: 0 16px 36px 0;
+    }
+    .painting-card:hover img { opacity: 0.88; }
 
-/* ── PAINTINGS GRID ── */
-.paintings-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  padding: 0 40px 60px;
-}
+    .painting-card img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.25s;
+      background: #eee;
+    }
 
-.painting-card {
-  cursor: pointer;
-  padding: 0 16px 36px 0;
-}
-.painting-card:hover img { opacity: 0.88; }
+    .painting-title {
+      font-size: 12px;
+      color: var(--red);
+      font-weight: 400;
+      margin-top: 10px;
+      line-height: 1.45;
+      font-family: 'Courier New', monospace;
+    }
 
-.painting-card img {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  display: block;
-  transition: opacity 0.25s;
-  background: #eee;
-}
+    /* ── PAINTING DETAIL PAGE ── */
+    #page-detail {
+      padding: 80px 60px 60px;
+    }
 
-.painting-title {
-  font-size: 12px;
-  color: var(--red);
-  font-weight: 400;
-  margin-top: 10px;
-  line-height: 1.45;
-  font-family: 'Courier New', monospace;
-}
+    .detail-back {
+      font-size: 13px;
+      color: var(--red);
+      cursor: pointer;
+      display: inline-block;
+      margin-bottom: 40px;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.05em;
+      transition: opacity 0.2s;
+    }
+    .detail-back:hover { opacity: 0.6; }
 
-/* ── PAINTING DETAIL PAGE ── */
-#page-detail {
-  padding: 80px 60px 60px;
-}
+    .detail-images {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
 
-.detail-back {
-  font-size: 13px;
-  color: var(--red);
-  cursor: pointer;
-  display: inline-block;
-  margin-bottom: 40px;
-  font-family: 'Courier New', monospace;
-  letter-spacing: 0.05em;
-  transition: opacity 0.2s;
-}
-.detail-back:hover { opacity: 0.6; }
+    .detail-images img {
+      max-height: 520px;
+      max-width: 100%;
+      object-fit: contain;
+      display: block;
+      background: #f0f0f0;
+    }
 
-.detail-images {
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
-  margin-bottom: 36px;
-}
+    .detail-description {
+      font-size: 14px;
+      color: var(--red);
+      font-weight: 400;
+      font-family: 'Courier New', monospace;
+      line-height: 1.7;
+      max-width: 680px;
+      margin-top: 16px;
+    }
 
-.detail-images img {
-  max-height: 520px;
-  max-width: 100%;
-  object-fit: contain;
-  display: block;
-  background: #f0f0f0;
-}
+    /* ── VIDEO PAGE ── */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      padding: 0 40px 60px;
+      align-items: start;
+    }
 
-.detail-description {
-  font-size: 14px;
-  color: var(--red);
-  font-weight: 400;
-  font-family: 'Courier New', monospace;
-  line-height: 1.7;
-  max-width: 680px;
-  margin-top: 16px;
-}
+    .video-item video,
+    .video-item img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: contain;
+      display: block;
+      background: #000;
+    }
 
-/* ── VIDEO PAGE ── */
-.video-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  padding: 0 40px 60px;
-  align-items: start;
-}
+    .video-item.tall { grid-row: span 2; }
 
-.video-item video,
-.video-item img {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: contain;
-  display: block;
-  background: #000;
-}
+    /* ── ABOUT ── */
+    .text-page {
+      padding: 40px 60px 80px;
+      max-width: 760px;
+    }
+    .text-page p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--black);
+      margin-bottom: 1.4em;
+    }
+    .text-page .label {
+      font-size: 13px;
+      color: var(--red);
+      font-family: 'Courier New', monospace;
+      margin-bottom: 6px;
+    }
 
-.video-item.tall { grid-row: span 2; }
+    /* ── PHOTO ── */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      padding: 0 40px 60px;
+    }
+    .photo-grid img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      display: block;
+      background: #eee;
+    }
+    .photo-caption {
+      font-size: 11px;
+      color: var(--red);
+      font-family: 'Courier New', monospace;
+      margin-top: 6px;
+    }
 
-/* ── ABOUT / LIGHT / SCHOOLWORK ── */
-.text-page {
-  padding: 40px 60px 80px;
-  max-width: 760px;
-}
-.text-page p {
-  font-size: 15px;
-  line-height: 1.8;
-  color: var(--black);
-  margin-bottom: 1.4em;
-}
-.text-page .label {
-  font-size: 13px;
-  color: var(--red);
-  font-family: 'Courier New', monospace;
-  margin-bottom: 6px;
-}
+    /* ── SCHOOLWORK ── */
+    .schoolwork-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+      padding: 0 40px 80px;
+    }
+    .schoolwork-item {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 40px;
+      align-items: start;
+      cursor: pointer;
+    }
+    .schoolwork-item:hover img { opacity: 0.88; }
+    .schoolwork-item img {
+      width: 100%;
+      object-fit: cover;
+      display: block;
+      background: #eee;
+      transition: opacity 0.25s;
+    }
+    .schoolwork-meta {
+      padding-top: 8px;
+    }
+    .schoolwork-title {
+      font-size: 15px;
+      color: var(--black);
+      font-family: 'Courier New', monospace;
+      margin-bottom: 10px;
+    }
+    .schoolwork-caption {
+      font-size: 11px;
+      color: var(--red);
+      font-family: 'Courier New', monospace;
+      margin-bottom: 16px;
+      letter-spacing: 0.05em;
+    }
+    .schoolwork-desc {
+      font-size: 13px;
+      color: var(--black);
+      line-height: 1.8;
+    }
 
-.schoolwork-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  padding: 0 40px 60px;
-}
-.schoolwork-grid img {
-  width: 100%;
-  height: 280px;
-  object-fit: cober;
-  display: block;
-  background: #eee;
-}
-.schoolwork-caption {
-  font-size: 11px;
-  color: var(--red);
-  font-family: 'Courier New', monospace;
-  margin-top: 6px;
-}
+    /* ── SCHOOLWORK DETAIL ── */
+    #page-schoolwork-detail {
+      padding: 80px 60px 60px;
+    }
+    .sw-detail-back {
+      font-size: 13px;
+      color: var(--red);
+      cursor: pointer;
+      display: inline-block;
+      margin-bottom: 40px;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.05em;
+      transition: opacity 0.2s;
+    }
+    .sw-detail-back:hover { opacity: 0.6; }
 
-/* ── RESPONSIVE ── */
-@media (max-width: 800px) {
-  nav { padding: 14px 20px; }
-  .nav-links a { font-size: 13px; padding: 2px 10px; }
-  .paintings-grid { grid-template-columns: repeat(2, 1fr); padding: 0 20px 40px; }
-  .video-grid { grid-template-columns: 1fr; padding: 0 20px 40px; }
-  .schoolwork-grid { grid-template-columns: repeat(2, 1fr); padding: 0 20px 40px; }
-  .section-heading { padding: 30px 20px 20px; }
-  .hero-name .last { font-size: 48px; }
-  #page-detail { padding: 70px 20px 40px; }
-  .text-page { padding: 20px 20px 60px; }
-}
-```
+    .sw-detail-layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 60px;
+      align-items: start;
+    }
 
+    .sw-detail-text {
+      position: sticky;
+      top: 100px;
+    }
+
+    .sw-detail-title {
+      font-size: 28px;
+      color: var(--black);
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+    .sw-detail-caption {
+      font-size: 12px;
+      color: var(--red);
+      font-family: 'Courier New', monospace;
+      margin-bottom: 24px;
+    }
+    .sw-detail-desc {
+      font-size: 13px;
+      color: var(--black);
+      line-height: 1.8;
+      white-space: pre-line;
+    }
+    .sw-detail-images {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .sw-detail-images img {
+      width: 100%;
+      display: block;
+      object-fit: contain;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 800px) {
+      nav { padding: 14px 20px; }
+      .nav-links a { font-size: 13px; padding: 2px 10px; }
+      .paintings-grid { grid-template-columns: repeat(2, 1fr); padding: 0 20px 40px; }
+      .video-grid { grid-template-columns: 1fr; padding: 0 20px 40px; }
+      .photo-grid { grid-template-columns: repeat(2, 1fr); padding: 0 20px 40px; }
+      .schoolwork-item { grid-template-columns: 1fr; }
+      .schoolwork-grid { padding: 0 20px 60px; gap: 60px; }
+      .section-heading { padding: 30px 20px 20px; }
+      .hero-name .last { font-size: 48px; }
+      #page-detail { padding: 70px 20px 40px; }
+      #page-schoolwork-detail { padding: 70px 20px 40px; }
+      .sw-detail-layout { grid-template-columns: 1fr; gap: 30px; }
+      .sw-detail-text { position: static; }
+      .text-page { padding: 20px 20px 60px; }
+    }
   </style>
 </head>
 <body>
 
   <!-- NAV -->
-
   <nav>
     <ul class="nav-links">
       <li><a href="#" onclick="showPage('home'); return false;">light is?</a></li>
-      <li><a href="#" onclick="showPage('paintings'); return false;">paintings</a></li>
       <li><a href="#" onclick="showPage('schoolwork'); return false;">schoolwork</a></li>
+      <li><a href="#" onclick="showPage('paintings'); return false;">paintings</a></li>
+      <li><a href="#" onclick="showPage('photo'); return false;">photo</a></li>
       <li><a href="#" onclick="showPage('video'); return false;">video</a></li>
       <li><a href="#" onclick="showPage('about'); return false;">about</a></li>
     </ul>
   </nav>
 
   <!-- ── HOME ── -->
-
   <div id="page-home" class="page active">
-           <img class="hero-image" src="your-forest-photo.jpg" alt="Forest"> 
+    <img class="hero-image" src="your-forest-photo.jpg" alt="Forest">
     <div class="hero-name">
       <span class="first" style="color: var(--red);">Yilin</span>
       <span class="last" style="color: var(--red);">Wang</span>
@@ -299,128 +390,194 @@ nav {
   </div>
 
   <!-- ── PAINTINGS ── -->
-
   <div id="page-paintings" class="page">
     <div class="section-heading">
       <span class="zh">画呀画</span> paintings
     </div>
-    <div class="paintings-grid" id="paintings-grid">
-      <!-- Cards injected by JS -->
-    </div>
+    <div class="paintings-grid" id="paintings-grid"></div>
   </div>
 
   <!-- ── PAINTING DETAIL ── -->
-
   <div id="page-detail" class="page">
     <span class="detail-back" onclick="showPage('paintings')">← back to paintings</span>
     <div class="detail-images" id="detail-images"></div>
     <div class="detail-description" id="detail-description"></div>
   </div>
 
-  <!-- ── SCHOOLWORK ── -->
+  <!-- ── PHOTO ── -->
+  <div id="page-photo" class="page">
+    <div class="section-heading">photo</div>
+    <div class="photo-grid">
+      <div>
+        <img src="photo-1.jpg" alt="Photo">
+        <div class="photo-caption">Kyoto, 2025</div>
+      </div>
+      <div>
+        <img src="photo-2.jpg" alt="Photo">
+        <div class="photo-caption">Kyoto, 2025</div>
+      </div>
+      <div>
+        <img src="photo-3.jpg" alt="Photo">
+        <div class="photo-caption">Kyoto, 2025</div>
+      </div>
+      <div>
+        <img src="photo-4.jpg" alt="Photo">
+        <div class="photo-caption">Kagoshima, 2025</div>
+      </div>
+      <div>
+        <img src="photo-5.jpg" alt="Photo">
+        <div class="photo-caption">Datong, 2025</div>
+      </div>
+      <div>
+        <img src="photo-6.jpg" alt="Photo">
+        <div class="photo-caption">Kagoshima, 2025</div>
+      </div>
+    </div>
+  </div>
 
+  <!-- ── SCHOOLWORK ── -->
   <div id="page-schoolwork" class="page">
     <div class="section-heading">schoolwork</div>
-    <div class="schoolwork-grid">
-      <!-- Add your schoolwork images below. Example: -->
-      <div>
-        <img src="schoolwork-1.jpg" alt="Project title">
-        <div class="schoolwork-caption">Urban Museum, 2022</div>
-        </div>
+    <div class="schoolwork-grid" id="schoolwork-grid"></div>
+  </div>
 
-      <div>
-        <img src="schoolwork-2.jpg" alt="Project title">
-        <div class="schoolwork-caption">Urban Sponge, 2023</div>
-        </div>
-
-      <div>
-        <img src="schoolwork-3.jpg" alt="Project title">
-        <div class="schoolwork-caption">Urban Analysis, 2024</div>
-        </div>
- 
+  <!-- ── SCHOOLWORK DETAIL ── -->
+  <div id="page-schoolwork-detail" class="page">
+    <span class="sw-detail-back" onclick="showPage('schoolwork')">← back to schoolwork</span>
+    <div class="sw-detail-layout">
+      <div class="sw-detail-text">
+        <div class="sw-detail-title" id="sw-detail-title"></div>
+        <div class="sw-detail-caption" id="sw-detail-caption"></div>
+        <div class="sw-detail-desc" id="sw-detail-desc"></div>
+      </div>
+      <div class="sw-detail-images" id="sw-detail-images"></div>
     </div>
   </div>
 
   <!-- ── VIDEO ── -->
-
   <div id="page-video" class="page">
     <div class="section-heading">video</div>
     <div class="video-grid">
-      <!--
-        Replace these with your actual <video> or <iframe> elements.
-        Example for a video file:
-          <div class="video-item">
-            <video controls src="your-video.mp4"></video>
-          </div>
-        Example for YouTube:
-          <div class="video-item">
-            <iframe width="100%" height="260" src="https://www.youtube.com/embed/YOUR_ID"
-              frameborder="0" allowfullscreen></iframe>
-          </div>
-      -->
       <div class="video-item">
-            <video controls src="video1.mp4"></video>
+        <video controls src="video1.mp4"></video>
       </div>
       <div class="video-item">
-            <video controls src="video2.mp4"></video>
+        <video controls src="video2.mp4"></video>
       </div>
       <div class="video-item">
-            <video controls src="video3.mp4"></video>
+        <video controls src="video3.mp4"></video>
       </div>
       <div class="video-item">
-            <video controls src="video4.mp4"></video>
+        <video controls src="video4.mp4"></video>
       </div>
-    </div>
-</div>
-
-  <!-- ── ABOUT ── -->
-
-  <div id="page-about" class="page">
-    <div class="section-heading">about</div>
-    <div class="text-page">
-      <p>
-        <!-- Replace with your actual bio -->
-        Still exploring myself.  <span style="color:var(--red);">   (^ - ^)</span>
-
-      </p>
-      <p>
-      </p>
-      <p>
-        Contact: <span style="color:var(--red);"> yilin88711@outlook.com   </span>
-      </p>
-        Instagram: <span style="color:var(--red);">   i_inlinen   </span>
-
+      <div class="video-item">
+        <video controls src="video5.mp4"></video>
+      </div>
+      <div class="video-item">
+        <video controls src="video6.mp4"></video>
+      </div>
     </div>
   </div>
 
-  <!-- ── LIGHT IS? ── -->
-
-  <!-- (home already serves as "light is?" — or add a separate text page) -->
+  <!-- ── ABOUT ── -->
+  <div id="page-about" class="page">
+    <div class="section-heading">about</div>
+    <div class="text-page">
+      <p>Still exploring myself. <span style="color:var(--red);">(^ - ^)</span></p>
+      <p>Contact: <span style="color:var(--red);">yilin88711@outlook.com</span></p>
+      <p>Instagram: <span style="color:var(--red);">i_inlinen</span></p>
+    </div>
+  </div>
 
   <script>
+
+    // ─────────────────────────────────────────────
+    // SCHOOLWORK DATA
+    // Add your real image filenames and descriptions below
+    // ─────────────────────────────────────────────
+    const schoolworks = [
+      {
+        title: "Urban Sponge",
+        caption: "Urban design | Team work | 2023 Fall ",
+        src: "schoolwork-1.jpg",
+        detailImages: ["schoolwork-1b.jpg", "schoolwork-1a.jpg", "schoolwork-1c.jpg", "schoolwork-1d.jpg", "schoolwork-1.jpg"],
+        description: `This project began with a Grasshopper-based surface runoff simulation and terrain analysis to investigate the hydrological conditions of Muyun Economic Development Zone in Changsha. By analyzing water flow patterns, accumulation areas, and drainage behaviors through computational modeling, the project identified the site's vulnerability to internal flooding caused by extensive hard surfaces and insufficient ecological infrastructure.
+
+The design proposal explores how low-impact development (LID) strategies can transform an underutilized industrial district into a resilient urban ecological system. Based on the hydrological analysis, a sponge city framework was developed through three integrated strategies: infiltration, drainage, and storage, enhancing water retention capacity while improving the site's environmental performance.
+
+Beyond stormwater management, the project addresses broader issues of fragmented accessibility, declining industrial vitality, and disconnected urban experiences. By introducing ecological corridors, adaptive public spaces, and new cultural-industrial functions, the design establishes a continuous spatial network that reconnects people, landscape, and urban activities.
+
+This project demonstrates how computational simulation can inform urban design decisions, integrating environmental performance analysis with spatial transformation strategies to explore resilient approaches for future urban regeneration.
+
+Tools: Rhino, Grasshopper, Surface Runoff Simulation, Parametric Modeling, Urban Design, Sponge City Strategy`
+      },
+      {
+        title: "Urban Analysis",
+        caption: "Urban-Rural Information System Application Practice | Solo work | 2024 Spring",
+        src: "schoolwork-3.jpg",
+        detailImages: ["schoolwork-3.jpg", "schoolwork-3b.jpg"],
+        description: `This project explores the application of GIS-based spatial analysis methods in understanding complex urban phenomena. Using ArcGIS as the primary analytical platform, the study applies geospatial data processing, spatial visualization, and analytical tools to investigate environmental, infrastructural, and ecological issues within urban systems.
+
+The project consists of three analytical studies: the evaluation of the urban heat island effect through temperature distribution analysis, the assessment of post-earthquake infrastructure damage and repair networks through spatial data analysis, and the investigation of urban vegetation distribution patterns using remote sensing-based vegetation indices.`
+      },
+      {
+        title: "Urban Museum",
+        caption: "Architecture design III | Solo work | 2022 Fall",
+        src: "schoolwork-2.jpg",
+        detailImages: ["schoolwork-2a.jpg","schoolwork-2.jpg", "schoolwork-2c.jpg", "schoolwork-2d.jpg"],
+        description: "The theme of this project is a tea culture museum focusing on Huxiang tea culture. Inspired by the concept of 'tea and Zen as one,' the design incorporates elements such as courtyards and winding corridors from traditional gardens. Visitors will experience various scenically designed courtyards as they move through the space, with the boundaries between landscape and architecture becoming blurred."
+      }
+    ];
+
+    // Build schoolwork cards
+    const swGrid = document.getElementById('schoolwork-grid');
+    schoolworks.forEach((s, i) => {
+      const item = document.createElement('div');
+      item.className = 'schoolwork-item';
+      item.onclick = () => showSchoolworkDetail(i);
+      item.innerHTML = `
+        <img src="${s.src}" alt="${s.title}">
+        <div class="schoolwork-meta">
+          <div class="schoolwork-title">${s.title}</div>
+          <div class="schoolwork-caption">${s.caption}</div>
+          <div class="schoolwork-desc">${s.description.substring(0, 120)}...</div>
+        </div>
+      `;
+      swGrid.appendChild(item);
+    });
+
+    function showSchoolworkDetail(index) {
+      const s = schoolworks[index];
+      document.getElementById('sw-detail-title').textContent = s.title;
+      document.getElementById('sw-detail-caption').textContent = s.caption;
+      document.getElementById('sw-detail-desc').textContent = s.description;
+      document.getElementById('sw-detail-images').innerHTML = s.detailImages
+        .map(src => `<img src="${src}" alt="${s.title}">`)
+        .join('');
+      showPage('schoolwork-detail');
+    }
+
     // ─────────────────────────────────────────────
     // PAINTINGS DATA
-    // To add real images: replace "src" with your image filename, e.g. "smudged-makeup.jpg"
-    // Place all images in the same folder as index.html
     // ─────────────────────────────────────────────
     const paintings = [
       {
         title: "Smudged makeup",
-        src: "smudged-makeup.jpg",          // e.g. "smudged-makeup.jpg"
-        detailImages: ["1-1.jpg", "1-2.jpg"],   // can have 1 or 2 images on detail page
-        description: "Add your description here."
+        src: "smudged-makeup.jpg",
+        detailImages: ["1-1.jpg", "1-2.jpg"],
+        description: "Makeup is creative."
       },
       {
         title: "All flushed moments",
         src: "All flushed moments.jpg",
         detailImages: ["2-1.jpg", "2-2.jpg"],
-        description: "My face always flushes when I feel tense or awkward. This is the time I try to face my red face."
+        description: "My face always flushes when I feel hot, tense or awkward. I used to hide it, but now I love it."
       },
       {
         title: "Outside the window",
         src: "Outside the window.jpg",
         detailImages: ["3-1.jpg", "3-2.jpg"],
-        description: "Our coffee shop has new windows. The view outside is framed like a painting."
+        description: "Our coffee shop has new windows. The view outside is framed like a painting changing with time."
       },
       {
         title: "Two people under the paulownia tree",
@@ -432,7 +589,7 @@ nav {
         title: "Wild pink flowers",
         src: "Blossom.jpg",
         detailImages: ["5-1.jpg", "5-2.jpg"],
-        description: "These flowers are like stars."
+        description: "Pink flowers."
       },
       {
         title: "She dreamed of red lightning last night.",
@@ -444,13 +601,49 @@ nav {
         title: "A breathe of spring",
         src: "A breathe of spring.jpg",
         detailImages: ["4-1.jpg", "4-2.jpg"],
-        description: ""
+        description: "It's been a long time since I last felt spring at home. When the spring breeze blows, I see it."
       },
       {
         title: "Status",
         src: "Status.jpg",
-        detailImages: ["8-1.jpg", "8-2.jpg","8-3.jpg","8-4.jpg"],
+        detailImages: ["8-1.jpg", "8-2.jpg", "8-3.jpg", "8-4.jpg"],
         description: "I found a hole."
+      },
+      {
+        title: "Windows",
+        src: "windows.jpg",
+        detailImages: ["10-1.jpg"],
+        description: "Open or closed."
+      },
+      {
+        title: "A women in veil",
+        src: "A women in veil.jpg",
+        detailImages: ["11-1.jpg", "11-2.jpg"],
+        description: "I encountered a woman with silver hair wearing a veil. On her veil grew numerous eyes, their capillaries spreading out like clawing tentacles."
+      },
+      {
+        title: "In music",
+        src: "In music.jpg",
+        detailImages: ["9-1.jpg", "9-2.jpg"],
+        description: "I love the random match between what I see and what I hear."
+      },
+      {
+        title: "Coffee bean",
+        src: "Coffee bean.jpg",
+        detailImages: ["12-1.jpg"],
+        description: "When it explode."
+      },
+      {
+        title: "Nowhere mountain",
+        src: "Nowhere mountain.jpg",
+        detailImages: ["13-1.jpg", "13-2.jpg"],
+        description: "mountain in nowhere."
+      },
+      {
+        title: "Labeled",
+        src: "Labeled.jpg",
+        detailImages: ["14-1.jpg", "14-2.jpg"],
+        description: "Labeled Birds."
       }
     ];
 
@@ -471,7 +664,6 @@ nav {
       grid.appendChild(card);
     });
 
-    // Show detail page for a painting
     function showDetail(index) {
       const p = paintings[index];
       const imgsEl = document.getElementById('detail-images');
@@ -496,7 +688,7 @@ nav {
       if (target) target.classList.add('active');
       window.scrollTo(0, 0);
     }
-  </script>
 
+  </script>
 </body>
 </html>
